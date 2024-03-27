@@ -1,4 +1,6 @@
 #include <stdio.h>
 
-int main {
+void crear_sucursal
+
+int main() {
 }
