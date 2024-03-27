@@ -130,3 +130,20 @@ int capacidad_sala()
 {
     return capacity;
 }
+
+int main() {
+    char comando[50];
+    char *comandos[4] = {"reserva", "libera", "estado_sala", "cerrar_sala"};
+    while (1) {
+        printf("Introduzca el comando deseado: \n");
+        scanf("%s", comando);
+
+        for (int i = 0; i < 4; i++) {
+            !strcmp("salir", nombresala)
+        }
+        
+        if (!strcmp("salir", nombresala)) break;
+        for (int i = 0; i < 
+        char *args[] = {"clear", NULL};
+        execvp(args[0], args);
+}
