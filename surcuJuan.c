@@ -23,6 +23,7 @@ void	crea_sucursal	(const	char*	ciudad,	int	capacidad)	{
     }
     else {
         wait(NULL);
+        printf("Sucursal de %s eliminada\n", ciudad);
     }
 	
 }	
