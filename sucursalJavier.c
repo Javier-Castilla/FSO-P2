@@ -28,5 +28,7 @@ int main() {
         scanf("%d", &capacidad);
 
         crea_sucursal(nombresala, capacidad);
+
+        waitpid();
     }
 }

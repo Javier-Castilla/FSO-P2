@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define MAX_CAPACITY 2000000 // Capacidas máxima permitida.
 int capacity = -1;           // Capacidad de la sala actual. -1 indica que no existe sala.
@@ -131,19 +132,58 @@ int capacidad_sala()
     return capacity;
 }
 
-int main() {
-    char comando[50];
-    char *comandos[4] = {"reserva", "libera", "estado_sala", "cerrar_sala"};
-    while (1) {
-        printf("Introduzca el comando deseado: \n");
-        scanf("%s", comando);
+void split(char *str, char *result[]) {
+    int j = 0;
+    int ctr = 0;
 
-        for (int i = 0; i < 4; i++) {
-            !strcmp("salir", nombresala)
+    for (int i = 0; i <= strlen(str); i++) {
+        if (str[i] == ' ' || str[i] == '\0') {
+            result[ctr][j] = '\0';
+            ctr++;
+            j = 0;
+        } else {
+            result[ctr][j++] = str[i];
         }
-        
-        if (!strcmp("salir", nombresala)) break;
-        for (int i = 0; i < 
-        char *args[] = {"clear", NULL};
-        execvp(args[0], args);
+    }
+}
+
+void clear()
+{
+    while (getchar() != '\n');
+}
+
+int main() {
+    char intCommand[50];
+    char *comando[20]; // Arreglo de punteros a caracteres
+
+    // Inicializamos el array de comandos
+    for (int i = 0; i < 20; i++) {
+        comando[i] = (char*)malloc(20 * sizeof(char)); // Asignamos memoria para cada palabra
+    }
+
+    char *comandos[] = {"reserva", "libera", "estado_asiento", "cerrar_sala"};
+    int i = 0;
+
+    while (1) {
+        scanf("%s", &intCommand);
+        clear();
+
+        split(intCommand, comando);
+
+        if (comando[0][0] == '\0') {
+            continue;
+        }
+
+        if (!strcmp("salir", comando[0])) break;
+
+        for (int i = 0; i < 20; i++) {
+            comando[i][0] = '\0';
+        }
+    }
+
+    for (int i = 0; i < 20; i++) {
+        free(comando[i]);
+    }
+
+    return 0;
 }
