@@ -145,7 +145,7 @@ int main() {
 
         pointer = strtok(comando, " ");
 
-        if (pointer2 != NULL) {
+        if (pointer != NULL) {
             pointer2 = strtok(NULL, " ");
             token = strtok(NULL, " ");
             if (token != NULL) printf("%s\n", "Comando no reconocido");
