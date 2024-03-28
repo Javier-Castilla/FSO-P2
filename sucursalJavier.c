@@ -4,14 +4,26 @@
 #include "sala.h"
 
 void crea_sucursal(const char* ciudad, int capacidad) {
-    pid_t pid = fork(); 
+    pid_t pid = fork();
 
-    if (pid == 0) {
-        char *args[] = {"gnome-terminal", NULL};
-        execvp(args[0], args);
-        printf("Sucursal de %s creada\n", ciudad);
-        }       
+    if (pid == -1) {
+        // Error al crear el proceso hijo
+        perror("Error al crear el proceso hijo");
+        exit(-1);
+    } else if (pid == 0) {
+        // Estamos en el proceso hijo
+        // Ejecutar el programa sala.c en una nueva terminal
+        execl("/usr/bin/gnome-terminal", "gnome-terminal", "--", "./sala", NULL);
+        // Si execl() retorna, hubo un error
+        perror("Error al ejecutar el programa sala");
+        exit(-1);
+    } else {
+        // Estamos en el proceso padre
+        // Esperar a que el hijo termine
+        wait(NULL);
+        printf("El programa sala terminó de ejecutarse en la otra terminal.\n");
     }
+}
     
 
 int main() {
