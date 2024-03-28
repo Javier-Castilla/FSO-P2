@@ -2,26 +2,18 @@
 #include <unistd.h>
 #include <string.h>
 #include "sala.h"
+#include <sys/wait.h>
+
+pid_t sucursales[10] = {0};
 
 void crea_sucursal(const char* ciudad, int capacidad) {
     pid_t pid = fork();
 
-    if (pid == -1) {
-        // Error al crear el proceso hijo
-        perror("Error al crear el proceso hijo");
-        exit(-1);
-    } else if (pid == 0) {
-        // Estamos en el proceso hijo
-        // Ejecutar el programa sala.c en una nueva terminal
-        execl("/usr/bin/gnome-terminal", "gnome-terminal", "--", "./sala", NULL);
-        // Si execl() retorna, hubo un error
-        perror("Error al ejecutar el programa sala");
-        exit(-1);
-    } else {
-        // Estamos en el proceso padre
-        // Esperar a que el hijo termine
-        wait(NULL);
-        printf("El programa sala terminó de ejecutarse en la otra terminal.\n");
+    if (pid == 0) {
+        char *argv2[] = {"gnome-terminal", "--", "bash", "-c", "./sala; exec bash", "500", NULL};
+        execvp("gnome-terminal", argv2);
+        perror("execvp");
+        exit(1);
     }
 }
     
@@ -29,6 +21,7 @@ void crea_sucursal(const char* ciudad, int capacidad) {
 int main() {
     char nombresala[100];
     int capacidad;
+    int num_salas = 0; // Número actual de salas creadas
 
     while (1) {
         printf("Introduzca el nombre de la sala o 'salir' para terminar: \n");
@@ -40,7 +33,16 @@ int main() {
         scanf("%d", &capacidad);
 
         crea_sucursal(nombresala, capacidad);
+        num_salas++;
 
-        waitpid();
+        for (int i = 0; i < num_salas; ++i) {
+            int status;
+            pid_t pid = waitpid(sucursales[i], &status, WNOHANG);
+                
+            if (pid > 0) {
+                printf("La sala con PID %d ha finalizado su ejecución.\n", pid);
+                sucursales[i] = 0;
+            }
+        }
     }
 }
