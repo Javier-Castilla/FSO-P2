@@ -145,11 +145,7 @@ int main() {
 
         pointer = strtok(comando, " ");
 
-        if (pointer != NULL) {
-            pointer2 = strtok(NULL, " ");
-            token = strtok(NULL, " ");
-            if (token != NULL) printf("%s\n", "Comando no reconocido");
-
+        while (pointer != NULL) {
             if (strcmp(pointer, "reserva") == 0) {
                 printf("Reservar el asiento: ");
                 printf("%d\n", atoi(pointer2));
@@ -163,26 +159,20 @@ int main() {
                 printf("%d\n", libera_asiento(atoi(pointer2)));
 
             } else if (strcmp(pointer, "estado_asiento") == 0) {
-                printf("Estado del asiento: ");
-                printf("%d\n", atoi(pointer2));
-                printf("%s", "Resultado de la operación (0 es libre, ID de la persona si está ocupado): ");
-                printf("%d\n", estado_asiento(atoi(pointer2)));
-
-            } else if (strcmp(pointer, "estado_sala\n") == 0) {
-                printf("Capacidad de la sala: ");
-                printf("%d\n", capacidad_sala());
-                printf("%s", "Asientos ocupados: ");
-                printf("%d\n", asientos_ocupados());
-                printf("%s", "Asientos libres: ");
-                printf("%d\n", asientos_libres());
-
-            } else if (strcmp(pointer, "cerrar_sala\n") == 0) {
-                printf("%s\n", "Cerrando sala...");
-                elimina_sala();
+                printf("Estado de un asiento: estado_asiento <id-asiento>\n");
+                pointer = strtok(NULL, " ");
+                if (pointer == NULL) break;
+                estado_asiento(atoi(pointer));
+            } else if (strcmp(pointer, "estado_sala") == 0) {
+                printf("Estado de la sala: estado_sala\n");
+            } else if (strcmp(pointer, "cerrar_sala") == 0) {
+                printf("Cerrar sala: cerrar_sala\n");
+            } else {
+                printf("Comando no reconocido\n");
             }
+            pointer = strtok(NULL, " ");
         }
+    exit(0);
     }
-        exit(0);
-
 }
 
