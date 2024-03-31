@@ -136,8 +136,6 @@ int asientos_libres()
     return capacity - occupied;
 }
 
-
-
 /** 
  * Función que retorna la cantidad de asientos ocupados
  *
@@ -147,8 +145,6 @@ int asientos_ocupados()
 {
     return occupied;
 }
-
-
 
 /** 
  * Función que retorna la capacidad actual de la sala
@@ -206,5 +202,5 @@ int main(int argc, char *argv[]) {
             }
         }
     }
-    exit(0);
+    exit(1);
 }
