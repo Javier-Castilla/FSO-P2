@@ -33,18 +33,27 @@ int main() {
     char nombresala[100];
     int capacidad;
     
-    
     while (1) {
+        int available = 1;
         printf("Introduzca el nombre de la sala o 'salir' para terminar: \n");
-        scanf("%s", nombresala);
+        scanf("%s", &nombresala);
 
         if (!strcmp("salir", nombresala)) break;
+
+        for (int i = 0; i < num_salas; i++) {
+            if (!strcmp(names[i], nombresala)) {
+                printf("* ERROR * El nombre introducido ya pertenece a una sucursal\n");
+                available = 0;
+            }
+        }
+
+        if (!available) continue;
         
         printf("Introduzca la capacidad de la sala: \n");
         scanf("%d", &capacidad);
         
         crea_sucursal(nombresala, capacidad);
-        sleep(1);
+        sleep(0.5);
 
         for (int i = 0; i < num_salas; i++) {
             pid_t pid = waitpid(sucursales[i], &status, WNOHANG);
