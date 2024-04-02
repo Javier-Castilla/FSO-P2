@@ -2,15 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 
-
-
 #define MAX_CAPACITY 2000000 // Capacidas máxima permitida.
 #define MAX_LENGTH 34
 int capacity = -1;           // Capacidad de la sala actual. -1 indica que no existe sala.
 int occupied = 0;            // Número de asientos ocupados.
 int* room;                   // Representación de la sala.
-
-
 
 /**
  * Se crea una sala con la capacidad indicada.
@@ -19,7 +15,6 @@ int* room;                   // Representación de la sala.
  * @return -1 si ha ocurrido algún error.
  * Se retorna la capacidad si se ha creado correctamente
 */
-
 int crea_sala(int capacidad)
 {
     if (capacidad < 1 || capacidad > MAX_CAPACITY || capacity != -1) {
@@ -37,8 +32,6 @@ int crea_sala(int capacidad)
 
 }
 
-
-
 /**
  * Se elimina la sala actual.
  * 
@@ -55,8 +48,6 @@ int elimina_sala()
 
 }
 
-
-
 /**
  * Reserva el asiento y le asigna la id de la persona indicada.
  * 
@@ -65,7 +56,6 @@ int elimina_sala()
  * Se retorna el id del asiento que se ha podido reservar
  * si no ha ocurrido ningún error
 */
-
 int reserva_asiento(int id_persona)
 {
 
@@ -81,7 +71,6 @@ int reserva_asiento(int id_persona)
 
     return -1;
 }
-
 
 /**
  * Función que retorna el id de la persona que reservó el asiento
@@ -103,8 +92,6 @@ int libera_asiento(int id_asiento)
     return -1;
 }
 
-
-
 /**
  * Función que retorna el estado de un asiento 
  * 
@@ -122,8 +109,6 @@ int estado_asiento(int id_asiento)
     }
     return -1;
 }
-
-
 
 /**
  * Función que retorna la cantidad de asientos libres 
@@ -156,8 +141,6 @@ int capacidad_sala()
     return capacity;
 }
 
-
-
 void clear()
 {
     while (getchar() != '\n');
@@ -167,6 +150,8 @@ void clear()
 
 int main(int argc, char *argv[]) {
     crea_sala(atoi(argv[1]));
+    char commands[5][50] = {"reserva <id-persona>", "libera <id-persona>", "estado_asiento <id-persona>", "estado_sala", "cerrar_sala"};
+    int commandsLength = 5;
     char command[50];
     char *commandStr, *arg;
 
@@ -197,6 +182,12 @@ int main(int argc, char *argv[]) {
                 printf("%s\n", "Cerrando sala...\n");
                 elimina_sala();
                 break;
+            } else if (!strcmp(commandStr, "help\n")) {
+                for (int i = 0; i < commandsLength; i++) {
+                    printf("----- %s\n", commands[i]);
+                }
+            } else if (!strcmp(commandStr, "clear\n")) {
+                printf("\e[1;1H\e[2J");
             } else {
                 printf("Comando no reconocido\n");
             }
