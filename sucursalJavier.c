@@ -36,7 +36,7 @@ int main() {
     while (1) {
         int available = 1;
         printf("Introduzca el nombre de la sala o 'salir' para terminar: \n");
-        scanf("%s", &nombresala);
+        fgets(nombresala, 100, stdin);
 
         if (!strcmp("salir", nombresala)) break;
 

@@ -150,7 +150,7 @@ void clear()
 
 int main(int argc, char *argv[]) {
     crea_sala(atoi(argv[1]));
-    char commands[7][50] = {"reserva\n", "libera\n", "estado_asiento\n", "estado_sala\n", "cerrar_sala\n", "clear\n", "man <comando>\n"};
+    char commands[7][50] = {"reserva\n", "libera\n", "estado_asiento\n", "estado_sala\n", "cerrar_sala\n", "clear\n", "man\n"};
     int commandsLength = 5;
     char command[50];
     char *commandStr, *arg;
