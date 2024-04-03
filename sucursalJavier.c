@@ -38,7 +38,7 @@ int main() {
         printf("Introduzca el nombre de la sala o 'salir' para terminar: \n");
         fgets(nombresala, 100, stdin);
 
-        if (!strcmp("salir", nombresala)) break;
+        if (!strcmp("salir\n", nombresala)) break;
 
         for (int i = 0; i < num_salas; i++) {
             if (!strcmp(names[i], nombresala)) {

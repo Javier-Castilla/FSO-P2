@@ -150,20 +150,10 @@ void clear()
 
 int main(int argc, char *argv[]) {
     crea_sala(atoi(argv[1]));
-    char commands[7][50] = {"reserva\n", "libera\n", "estado_asiento\n", "estado_sala\n", "cerrar_sala\n", "clear\n", "man\n"};
-    char commandsFormat[7][50] = {"reserva <id-persona>\n", "libera <id_asiento>\n", "estado_asiento\n", "estado_sala\n", "cerrar_sala\n", "clear\n", "man\n"};
+    char commands[7][50] = {"reserva <id-persona>\n", "libera <id_asiento>\n", "estado_asiento<id-asiento>\n", "estado_sala\n", "cerrar_sala\n", "clear\n", "man\n"};
     int commandsLength = 5;
     char command[50];
     char *commandStr, *arg;
-    char helpstr[7][200] = {
-        "Reserva el primer asiento libre y le asigna la ID pasada. Se retorna -1 si ha ocurrido algún error",
-        "Se libera el asiento con la ID pasada. Se retorna la ID de la persona que ocupaba el asiento o -1 si ha ocurrido algún error",
-        "Pasada la ID de un asiento, se devuelve 0 si está libre, 1 si está ocupado o -1 si ha ocurrido algún error",
-        "Se muestra el estado de la sala (capacidad, asientos ocupados y libres)",
-        "Elimina la sala actual"
-        "Limpia la terminal de cualquier texto",
-        "Pasado un comando como argumento, muestra la descripción sobre dicho comando"
-    };
 
     while (1) {
         fgets(command, MAX_LENGTH, stdin);
@@ -198,13 +188,6 @@ int main(int argc, char *argv[]) {
                 }
             } else if (!strcmp(commandStr, "clear\n")) {
                 printf("\e[1;1H\e[2J");
-            } else if (!strcmp(commandStr, "man")) {
-                for (int i = 0; i < 7; i++) {
-                    if (!strcmp(commands[i], arg)) {
-                        printf("%s\n", helpstr[i]);
-                        break;
-                    }
-                }
             } else {
                 printf("Comando no reconocido\n");
             }
