@@ -150,8 +150,8 @@ void clear()
 
 int main(int argc, char *argv[]) {
     crea_sala(atoi(argv[1]));
-    char commands[7][50] = {"reserva <id-persona>\n", "libera <id_asiento>\n", "estado_asiento<id-asiento>\n", "estado_sala\n", "cerrar_sala\n", "clear\n", "man\n"};
-    int commandsLength = 5;
+    char commands[7][50] = {"reserva <id-persona>\n", "libera <id_asiento>\n", "estado_asiento<id-asiento>\n", "estado_sala\n", "cerrar_sala\n", "clear\n", "quit\n"};
+    int commandsLength = 7;
     char command[50];
     char *commandStr, *arg;
 
@@ -160,37 +160,42 @@ int main(int argc, char *argv[]) {
 
         commandStr = strtok(command, " ");
 
-        if (commandStr) {
-            arg = strtok(NULL, " ");
-            if (strtok(NULL, " ")) printf("%s\n", "Comando no reconocido");
+        arg = strtok(NULL, " ");
+        if (strtok(NULL, " ")) {
+            goto nonav;
+        }
 
-            if (!strcmp(commandStr, "reserva")) {
-                printf("Reservar el asiento: %d\nResultado de la reserva: %d\n", atoi(arg), reserva_asiento(atoi(arg)));
-            } else if (!strcmp(commandStr, "libera")) {
-                printf("Liberar el asiento: %d\nResultado de la liberación: %d\n", atoi(arg), libera_asiento(atoi(arg)));
-            } else if (!strcmp(commandStr, "estado_asiento")) {
-                printf(
-                    "Estado del asiento: %d\nResultado de la operación (0 es libre, ID de la persona si está ocupado): %d\n",
-                    atoi(arg), estado_asiento(atoi(arg))
-                );
-            } else if (!strcmp(commandStr, "estado_sala\n")) {
-                printf(
-                    "Capacidad de la sala: %d\nAsientos ocupados: %d\nAsientos libres: %d\n",
-                    capacidad_sala(), asientos_ocupados(), asientos_libres()
-                );
-            } else if (!strcmp(commandStr, "cerrar_sala\n")) {
-                printf("%s\n", "Cerrando sala...\n");
-                elimina_sala();
-                break;
-            } else if (!strcmp(commandStr, "help\n")) {
-                for (int i = 0; i < commandsLength; i++) {
-                    printf("----- %s", commands[i]);
-                }
-            } else if (!strcmp(commandStr, "clear\n")) {
-                printf("\e[1;1H\e[2J");
-            } else {
-                printf("Comando no reconocido\n");
+        if (!strcmp(commandStr, "reserva")) {
+            printf("Reservar el asiento: %d\nResultado de la reserva: %d\n", atoi(arg), reserva_asiento(atoi(arg)));
+        } else if (!strcmp(commandStr, "libera")) {
+            printf("Liberar el asiento: %d\nResultado de la liberación: %d\n", atoi(arg), libera_asiento(atoi(arg)));
+        } else if (!strcmp(commandStr, "estado_asiento")) {
+            printf(
+                "Estado del asiento: %d\nResultado de la operación (0 es libre, ID de la persona si está ocupado): %d\n",
+                atoi(arg), estado_asiento(atoi(arg))
+            );
+        } else if (!strcmp(commandStr, "estado_sala\n")) {
+            printf(
+                "Capacidad de la sala: %d\nAsientos ocupados: %d\nAsientos libres: %d\n",
+                capacidad_sala(), asientos_ocupados(), asientos_libres()
+            );
+        } else if (!strcmp(commandStr, "cerrar_sala\n")) {
+            printf("%s\n", "Cerrando sala...\n");
+            elimina_sala();
+            break;
+        } else if (!strcmp(commandStr, "help\n")) {
+            for (int i = 0; i < commandsLength; i++) {
+                printf("----- %s", commands[i]);
             }
+        } else if (!strcmp(commandStr, "clear\n")) {
+            printf("\e[1;1H\e[2J");
+        } else if (!strcmp(commandStr, "quit\n")) {
+            printf("%s\n", "Cerrando sala...\n");
+            elimina_sala();
+            break;
+        } else {
+nonav:
+            printf("Comando no reconocido\n");
         }
     }
     exit(1);
