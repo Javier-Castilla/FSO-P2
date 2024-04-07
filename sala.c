@@ -150,6 +150,8 @@ void clear()
 
 int main(int argc, char *argv[]) {
     crea_sala(atoi(argv[1]));
+    char *roomName = argv[2];
+    printf("======================\nROOM %s\n======================\n", roomName);
     char commands[7][50] = {"reserva <id-persona>\n", "libera <id_asiento>\n", "estado_asiento<id-asiento>\n", "estado_sala\n", "cerrar_sala\n", "clear\n", "quit\n"};
     int commandsLength = 7;
     char command[50];
@@ -189,6 +191,7 @@ int main(int argc, char *argv[]) {
             }
         } else if (!strcmp(commandStr, "clear\n")) {
             printf("\e[1;1H\e[2J");
+            printf("======================\nROOM %s\n======================\n", roomName);
         } else if (!strcmp(commandStr, "quit\n")) {
             printf("%s\n", "Cerrando sala...\n");
             elimina_sala();
