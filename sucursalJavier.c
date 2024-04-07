@@ -35,11 +35,11 @@ int main() {
     char nombresala[100];
     int capacidad;
 
-    pid_t pid = fork();
-
-    if (pid == 0) {
+    if (fork() == 0) {
         char *compile_cmd[] = {"gcc", "sala.c", "-o", "sala", NULL};
         execvp("gcc", compile_cmd);
+    } else {
+        wait(NULL);
     }
     
     while (1) {
@@ -68,8 +68,8 @@ int main() {
 again:
             scanf("%d", &capacidad);
 
-            if (capacidad == -1) {
-                printf("Introduzca un número como capacidad de la sala:\n");
+            if (capacidad == -1 || capacidad > 2000000 || capacidad < 1) {
+                printf("Introduzca un número válido como capacidad de la sala:\n");
                 while (getchar() != '\n');
                 goto again;
             } else {
